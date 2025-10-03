@@ -33,25 +33,44 @@ A firmware for ESP32 NodeMCU that reads data from an SCT-013-000 current sensor,
 1. Install [PlatformIO](https://platformio.org/install) (recommended) or Arduino IDE
 2. Clone this repository or download the source code
 
-### Building and Uploading 
+### Building and Uploading
+
+This repository contains multiple firmware applications. You can choose which one to build using PlatformIO environments.
+
+#### Available Firmware Environments
+
+*   `main_app` (Default): The main, feature-rich application with WiFiManager, OTA updates, and AI features.
+*   `tft_app`: A version that displays power metrics on a TFT screen.
+*   `minimal_app`: A simplified version with hardcoded WiFi credentials for quick testing.
+*   `simple_test`: A basic test sketch to ensure your toolchain is working.
 
 #### Using PlatformIO
 
-1. Open the project in PlatformIO
-2. Run "Build" to compile the firmware
-3. Connect your ESP32 to your computer via USB
-4. Run "Upload" to flash the firmware
-5. Run "Upload File System Image" to upload the configuration files
+1.  Open the project in PlatformIO.
+2.  To build a specific firmware, use the `-e` flag with `platformio run`. For example, to build the main application:
+    ```bash
+    platformio run -e main_app
+    ```
+    If you don't specify an environment, the `main_app` will be built by default.
+
+3.  To upload a specific firmware, use the `-e` flag with `platformio upload`:
+    ```bash
+    platformio upload -e main_app
+    ```
+
+4.  To upload the file system image (for configurations), run:
+    ```bash
+    platformio run --target uploadfs -e main_app
+    ```
 
 #### Using Arduino IDE
 
-1. Install the ESP32 board support package
-2. Install required libraries:
-   - ArduinoJson
-   - WiFiManager
-3. Manually create the file structure in Arduino IDE
-4. Select the correct board and port
-5. Upload the sketch
+1.  Install the ESP32 board support package.
+2.  Install the required libraries for the specific firmware you want to use (see `platformio.ini` for details).
+3.  Open the desired `.cpp` file (e.g., `main.cpp`) in the Arduino IDE. You will be prompted to create a sketch folder.
+4.  Copy all required header files (`.h`) and implementation files (`.cpp`) for your chosen application into the new sketch folder.
+5.  Select the correct board and port.
+6.  Upload the sketch.
 
 ## First-time Setup
 
